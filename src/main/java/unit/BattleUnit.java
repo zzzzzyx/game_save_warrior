@@ -6,6 +6,7 @@ public abstract class BattleUnit {
     public int blood;
     public int damage;
     public int defense;
+    public int current_blood;
 
     public BattleUnit(String name, int level, int blood, int damage, int defense) {
         this.name = name;
@@ -13,5 +14,6 @@ public abstract class BattleUnit {
         this.blood = blood;
         this.damage = damage;
         this.defense = defense;
+        this.current_blood = blood;
     }
 }

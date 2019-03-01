@@ -1,12 +1,14 @@
 package gui;
 
+import gameboard.GameModel;
+
 import javax.swing.*;
 import java.awt.*;
 
 
 public class MainFrame {
 
-    private BattlePanel battlePanel;
+    private BattlePanel battlePanelShow;
     private SkillPanel skillPanel;
 
     public static void main(String[] args) {
@@ -25,10 +27,12 @@ public class MainFrame {
         Dimension screenSize = tk.getScreenSize();
         frame.setLocation((screenSize.width - 1200)/2, (screenSize.height - 750)/2);
 
-        battlePanel = new BattlePanel();
-        frame.add(battlePanel);
+        battlePanelShow = new BattlePanel();
+        frame.add(battlePanelShow);
+        GameModel gm = GameModel.getInstance();
+        gm.setObserverAndInvoke(battlePanelShow);
 
-        skillPanel = new SkillPanel(battlePanel);
+        skillPanel = new SkillPanel(battlePanelShow);
         frame.add(skillPanel);
 
         // 设置界面可见

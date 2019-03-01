@@ -1,36 +1,50 @@
 package gui;
 
+import gameboard.SkillModel;
+import skill.AbstractSkill;
+import skill.NonTargetSkill;
+import skill.TargetedSkill;
+import skill.W_NormalAttack_L1;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SkillPanel extends JPanel {
-    private BattlePanel battlePanel;
-    public SkillPanel(BattlePanel battlePanel) {
+    private BattlePanel battlePanelShow;
+    public SkillPanel(BattlePanel battlePanelShow) {
         this.setBounds(200,480,800,100);
         this.setBorder(BorderFactory.createLineBorder(Color.black));
-        this.battlePanel = battlePanel;
+        this.setLayout(new GridLayout(1,3));
+        this.battlePanelShow = battlePanelShow;
         initSkillPanel();
     }
 
     private void initSkillPanel() {
-        this.setLayout(new GridLayout(1,3));
+        SkillModel sm = SkillModel.getInstance();
 
-        JButton loginButton = new JButton("平砍");
-        loginButton.addActionListener(new panelChangeListener());
-        this.add(loginButton);
-        JButton login2Button = new JButton("平砍");
-        this.add(login2Button);
-        JButton login3Button = new JButton("平砍");
-        this.add(login3Button);
+        for(AbstractSkill abstractSkill : sm.getSkills()){
+            JButton loginButton = new JButton(abstractSkill.getName());
+            if (abstractSkill instanceof TargetedSkill){
+                TargetedSkill ts = (TargetedSkill) abstractSkill;
+                loginButton.addActionListener((e -> battlePanelShow.activateForChooseTarget(ts)));
+            }else{
+                NonTargetSkill nts = (NonTargetSkill) abstractSkill;
+                loginButton.addActionListener((e -> nts.trigger()));
+            }
+            this.add(loginButton);
+        }
+
     }
 
     class panelChangeListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            battlePanel.testHurtLabel();
+//            battlePanelShow.testHurtLabel();
+            battlePanelShow.activateForChooseTarget(new W_NormalAttack_L1());
+
         }
     }
 }

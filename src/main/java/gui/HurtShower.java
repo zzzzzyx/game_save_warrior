@@ -1,10 +1,20 @@
 package gui;
 
+import unit.Monster;
+
 import javax.swing.JLabel;
 import java.awt.*;
+import java.util.HashMap;
 
-class HurtShower {
-    static void showLabel(JLabel x, int num){
+public class HurtShower {
+    private static HashMap<Monster,JLabel> hurtLabelMap;
+
+    public static void showMonsterHurt(Monster m, int num){
+        if(hurtLabelMap.keySet().contains(m))
+            showLabel(hurtLabelMap.get(m),num);
+    }
+
+    private static void showLabel(JLabel x, int num){
         x.setText("- " + num);
         Thread t = new Thread(() -> {
             x.setVisible(true);
@@ -36,5 +46,9 @@ class HurtShower {
             x.setVisible(false);
         });
         t.start();
+    }
+
+    public static void updateHurtLabelMap(HashMap<Monster, JLabel> hurtLabelMap) {
+        HurtShower.hurtLabelMap = hurtLabelMap;
     }
 }
