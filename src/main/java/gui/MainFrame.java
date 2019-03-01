@@ -1,6 +1,7 @@
 package gui;
 
 import gameboard.GameModel;
+import gameboard.GlobalLogger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,6 +35,10 @@ public class MainFrame {
 
         skillPanel = new SkillPanel(battlePanelShow);
         frame.add(skillPanel);
+
+        LogPanel logPanel = new LogPanel(new JEditorPane());
+        frame.add(logPanel);
+        GlobalLogger.initLogPanel(logPanel);
 
         // 设置界面可见
         frame.setVisible(true);

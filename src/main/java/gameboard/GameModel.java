@@ -36,6 +36,11 @@ public class GameModel {
 
     public void invokeObserver(){
         //检查有无怪兽死亡，如有死亡，则移除出列表
+        for(Monster m : monsters){
+            if(m.current_blood <= 0){
+                GlobalLogger.log("您已击杀了 " + m.name);
+            }
+        }
         monsters.removeIf(monster -> monster.current_blood <= 0);
         observer.monstersRenew(monsters);
     }
