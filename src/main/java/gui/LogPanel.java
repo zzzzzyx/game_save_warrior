@@ -12,7 +12,7 @@ public class LogPanel extends JScrollPane {
         super(logTextPanel);
         this.logTextPanel = logTextPanel;
         logTextPanel.setEditable(false);
-        this.setBounds(200,590,800,100);
+        this.setBounds(200,500,800,100);
         this.setBorder(BorderFactory.createLineBorder(Color.black));
         this.setHorizontalScrollBarPolicy(
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

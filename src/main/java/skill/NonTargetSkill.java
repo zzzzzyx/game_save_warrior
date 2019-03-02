@@ -1,6 +1,6 @@
 package skill;
 
 
-public abstract class NonTargetSkill implements AbstractSkill {
+public abstract class NonTargetSkill extends AbstractSkill {
     public abstract void trigger();
 }

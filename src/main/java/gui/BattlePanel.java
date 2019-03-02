@@ -16,7 +16,7 @@ public class BattlePanel extends JPanel implements MonstersRenewObserver {
     TargetedSkill targetedSkill;
 
     public BattlePanel() {
-        this.setBounds(200,100,800,370);
+        this.setBounds(200,10,800,370);
         this.setBorder(BorderFactory.createLineBorder(Color.blue));
         this.setLayout(new FlowLayout(FlowLayout.CENTER));
     }

@@ -39,12 +39,22 @@ public class M_RandomAOE extends NonTargetSkill{
     }
 
     @Override
-    public String getName() {
+    public String getSkillName() {
         return "神龙摆尾";
     }
 
     @Override
     public String getDescription() {
         return null;
+    }
+
+    @Override
+    public String getEnhanceDescription() {
+        return "第一级:对全屏随机3个目标造成伤害<br>第二级：伤害提升30%<br>第三级：伤害提升50%，对4个目标造成伤害";
+    }
+
+    @Override
+    public void enhance() {
+
     }
 }

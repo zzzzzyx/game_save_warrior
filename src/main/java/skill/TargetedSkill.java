@@ -2,6 +2,6 @@ package skill;
 
 import unit.Monster;
 
-public abstract class TargetedSkill implements AbstractSkill {
+public abstract class TargetedSkill extends AbstractSkill {
     public abstract void trigger(Monster m);
 }

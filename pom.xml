@@ -8,5 +8,13 @@
     <artifactId>game_save_warrior</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/tablelayout/TableLayout -->
+        <dependency>
+            <groupId>tablelayout</groupId>
+            <artifactId>TableLayout</artifactId>
+            <version>20050920</version>
+        </dependency>
+    </dependencies>
 
 </project>
