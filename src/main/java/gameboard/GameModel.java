@@ -4,9 +4,9 @@ import observation.LevelChangeObserver;
 import observation.MonstersRenewObserver;
 import observation.ReloadDataObserver;
 import skill.AbstractSkill;
+import unit.Mage;
 import unit.Monster;
 import unit.Player;
-import unit.Warrior;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +25,7 @@ public class GameModel {
     private GameModel(){
         currentLevel = 1;
         monsters = MapFactory.getMap(currentLevel);
-        player = new Warrior("战士",10000,500,
-                200,100,50,1,1000);
+        player = new Mage();
     }
 
     public static GameModel getInstance() {
@@ -85,7 +84,10 @@ public class GameModel {
     }
 
     public static void changeLevel(int level){
-        getInstance().currentLevel = level;
-        getInstance().monsters = MapFactory.getMap(level);
+        GameModel gm = getInstance();
+        gm.currentLevel = level;
+        gm.getPlayer().current_blood = gm.getPlayer().blood;
+        gm.monsters = MapFactory.getMap(level);
+        gm.reloadData();
     }
 }

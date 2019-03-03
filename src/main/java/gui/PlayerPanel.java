@@ -45,11 +45,11 @@ public class PlayerPanel extends JPanel implements ReloadDataObserver {
 
         tablePanel.add (new JLabel("武器："), "1, 5");
         tablePanel.add (new JLabel(player.weapon.name), "2, 5");
-        tablePanel.add (new JLabel("武器等级："), "1, 6");
+        tablePanel.add (new JLabel("武器等级:"), "1, 6");
         tablePanel.add (new JLabel(player.weapon.level+""), "2, 6");
-        tablePanel.add (new JLabel("攻击加成："), "1, 7");
+        tablePanel.add (new JLabel("攻击加成:"), "1, 7");
         tablePanel.add (new JLabel(player.weapon.damage+""), "2, 7");
-        tablePanel.add (new JLabel("防御加成："), "1, 8");
+        tablePanel.add (new JLabel("防御加成:"), "1, 8");
         tablePanel.add (new JLabel(player.weapon.defense+""), "2, 8");
 
         tablePanel.add (new JLabel("金钱："), "1, 10");

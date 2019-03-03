@@ -30,6 +30,10 @@ public class SkillPanel extends JPanel {
                 NonTargetSkill nts = (NonTargetSkill) abstractSkill;
                 loginButton.addActionListener((e -> nts.trigger()));
             }
+            loginButton.setFont(new Font("宋体",Font.BOLD,21));
+            loginButton.setLayout(new BorderLayout());
+            JLabel descriptionLabel = new JLabel("<html>"+abstractSkill.getDescription()+"</html>",JLabel.CENTER);
+            loginButton.add(BorderLayout.SOUTH,descriptionLabel);
             this.add(loginButton);
         }
 

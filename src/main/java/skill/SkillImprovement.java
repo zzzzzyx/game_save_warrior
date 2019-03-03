@@ -19,7 +19,6 @@ public class SkillImprovement extends Buyable {
     public void buy_sub(Player player) {
         skill.level += 1;
         renewProductName();
-        skill.enhance();
     }
 
     @Override

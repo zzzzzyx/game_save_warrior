@@ -43,17 +43,17 @@ public class MapFactory {
     private static int count = 0;
     public static Monster getSmallMonster(){
         count ++;
-        return new Monster("林间雪怪 "+count,3000,1000,200);
+        return new Monster("林间雪怪 "+count,4000,1000,200);
     }
 
     public static Monster getMediumMonster(){
         count ++;
-        return new Monster("嘶吼猛狮 "+count,8000,2000,500);
+        return new Monster("嘶吼猛狮 "+count,6000,1500,500);
     }
 
     public static Monster getLargeMonster(){
         count ++;
-        return new Monster("钢铁暴龙 "+count,20000,4000,1000);
+        return new Monster("钢铁暴龙 "+count,10000,2500,1000);
     }
 
 }

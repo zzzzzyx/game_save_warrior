@@ -8,5 +8,4 @@ public abstract class AbstractSkill {
     }
     public abstract String getDescription();
     public abstract String getEnhanceDescription();
-    public abstract void enhance();
 }

@@ -3,32 +3,39 @@ package skill;
 import gameboard.GameModel;
 import gui.HurtShower;
 import unit.Monster;
+import unit.Warrior;
 
 public class W_NormalAttack extends TargetedSkill{
+    double[] damage_coefficient ={0,1,1.2,1.5};
+    double[] recover_coefficient = {0,0.05,0.08,0.1};
     @Override
     public void trigger(Monster m) {
-        m.current_blood -= 1000;
-        GameModel.getInstance().invokeObserver();
-        HurtShower.showMonsterHurt(m,1000);
+        var gm = GameModel.getInstance();
+        var player = (Warrior)gm.getPlayer();
+        int damage_cause = player.getActualDamageCauseToMonster(m);
+        damage_cause *= 2*damage_coefficient[level];
+        damage_cause = damage_cause>0?damage_cause:0;
+        m.current_blood -= damage_cause;
+        player.addCurrentBlood((int)(player.blood*recover_coefficient[level]));
+        player.resetDamageNext();
+        gm.invokeObserver();
+        gm.reloadData();
+        HurtShower.showMonsterHurt(m,damage_cause);
     }
 
     @Override
     public String getSkillName() {
-        return "磨牙吮血";
+        return "嗜血若狂";
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "对目标造成大量额定伤害，并回复自身血量";
     }
 
     @Override
     public String getEnhanceDescription() {
-        return "第一级:平砍并恢复5%血量<br>第二级：伤害提升20%，恢复10%血量<br>第三级：伤害提升50%，恢复20%血量";
+        return "1:对目标造成两倍额定伤害，并回复5%血量<br>2:伤害提升20%，恢复8%血量<br>3:伤害提升50%，恢复10%血量";
     }
 
-    @Override
-    public void enhance() {
-
-    }
 }

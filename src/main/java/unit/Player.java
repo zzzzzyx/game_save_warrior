@@ -1,5 +1,6 @@
 package unit;
 
+import gameboard.GameModel;
 import gameboard.GlobalLogger;
 import gameboard.MapFactory;
 import skill.AbstractSkill;
@@ -43,7 +44,33 @@ public abstract class Player extends BattleUnit {
             this.blood *= 1.5;
             this.damage *= 1.5;
             this.defense *= 1.5;
+            this.levelExp *= 1.5;
         }
+    }
+    public void addCurrentBlood(int addant){
+        int mirror_current_blood = current_blood;
+        current_blood += addant;
+        current_blood = current_blood>blood?blood:current_blood;
+        int change = current_blood - mirror_current_blood;
+        if(change > 0){
+            GlobalLogger.log("您回复了"+addant+"点血量");
+        }
+    }
+    public void minusCurrentBlood(int minus){
+        current_blood -= minus;
+        GameModel.getInstance().reloadData();
+        if(current_blood <= 0){
+            GlobalLogger.log("您死了，游戏结束，大侠请重新来过。");
+            //TODO Game over
+        }
+    }
+
+    public int getActualDamageCauseToMonster(Monster monster){
+        return damage + weapon.damage - monster.defense;
+    }
+
+    public int getActualDefense(){
+        return defense + weapon.defense;
     }
 
     protected List<AbstractSkill> skills;
