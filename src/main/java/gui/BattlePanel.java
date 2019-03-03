@@ -1,6 +1,7 @@
 package gui;
 
-import observation.MonstersRenewObserver;
+import gameboard.GameModel;
+import observation.SkillUseObserver;
 import skill.TargetedSkill;
 import unit.Monster;
 
@@ -9,7 +10,7 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 
-public class BattlePanel extends JPanel implements MonstersRenewObserver {
+public class BattlePanel extends JPanel implements SkillUseObserver {
 
     protected final static int MONSTER_WIDTH = 180;
     protected final static int MONSTER_HEIGHT = 175;
@@ -46,34 +47,32 @@ public class BattlePanel extends JPanel implements MonstersRenewObserver {
     }
 
     @Override
-    public void monstersRenew(List<Monster> monsters) {
+    public void invoke(boolean playerUseSkill) {
+        synchronized (this){
+            List<Monster> monsters = GameModel.getInstance().getMonsters();
+            this.removeAll();
+            this.repaint();
 
-        for (Component c: this.getComponents()){
-            if(c instanceof JButton){
-                this.remove(c);
+            HashMap<Monster,JLabel> hurtLabelMap = new HashMap<>();
+
+            for(Monster monster : monsters) {
+                var monsterButton = generateMonsterButton(monster);
+
+                JLabel l = new JLabel("",JLabel.CENTER);
+                l.setVisible(false);
+                l.setSize(MONSTER_WIDTH,50);
+
+                hurtLabelMap.put(monster,l);
+                monsterButton.add(l);
+
+                monsterButton.addActionListener((e)->targetedSkill.trigger(monster));
+
+                this.add(monsterButton);
             }
+            HurtShower.updateHurtLabelMap(hurtLabelMap);
+            this.revalidate();
         }
 
-        HashMap<Monster,JLabel> hurtLabelMap = new HashMap<>();
-
-        for(Monster monster : monsters) {
-            var monsterButton = generateMonsterButton(monster);
-
-            JLabel l = new JLabel("",JLabel.CENTER);
-            l.setForeground(Color.white);
-            l.setFont(new Font (Font.SANS_SERIF, Font.BOLD, 23));
-            l.setVisible(false);
-            l.setSize(MONSTER_WIDTH,50);
-
-            hurtLabelMap.put(monster,l);
-            monsterButton.add(l);
-
-            monsterButton.addActionListener((e)->targetedSkill.trigger(monster));
-
-            this.add(monsterButton);
-        }
-        HurtShower.updateHurtLabelMap(hurtLabelMap);
-        this.repaint();
     }
 
     public void activateForChooseTarget(TargetedSkill targetedSkill) {

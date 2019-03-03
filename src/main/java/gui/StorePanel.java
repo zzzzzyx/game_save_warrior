@@ -20,11 +20,8 @@ public class StorePanel extends JPanel implements ReloadDataObserver {
 
     @Override
     public void reloadData(){
-        for (Component c: this.getComponents()){
-            if(c instanceof JButton){
-                this.remove(c);
-            }
-        }
+        this.removeAll();
+        this.repaint();
 
         Store store = Store.getInstance();
         var products = store.getProducts();

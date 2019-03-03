@@ -1,7 +1,6 @@
 package weapon;
 
 import gameboard.Buyable;
-import gameboard.GameModel;
 import unit.Player;
 
 public abstract class Weapon extends Buyable implements Cloneable{

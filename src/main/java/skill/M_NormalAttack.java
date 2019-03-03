@@ -21,9 +21,12 @@ public class M_NormalAttack extends TargetedSkill{
         damage_cause *= efficient;
         damage_cause = damage_cause>0?damage_cause:0;
         m.current_blood -= damage_cause;
-        gm.invokeObserver();
+        gm.invokeSkillUseObserver(true);
         gm.reloadData();
-        HurtShower.showMonsterHurt(m,damage_cause);
+        var showSuccess = HurtShower.showMonsterHurt(m,damage_cause);
+        if(!showSuccess){
+            new Thread(GameModel::playerRoundEnd).start();
+        }
     }
 
     @Override

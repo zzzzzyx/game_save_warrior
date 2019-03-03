@@ -42,9 +42,12 @@ public class W_Collision extends TargetedSkill{
             damage_list.put(monster,damage_cause);
         }
         player.resetDamageNext();
-        gm.invokeObserver();
+        gm.invokeSkillUseObserver(true);
         for(Monster monster : selectedMonsterList){
-            HurtShower.showMonsterHurt(monster,damage_list.get(monster));
+            var showSuccess = HurtShower.showMonsterHurt(monster,damage_list.get(monster));
+            if(!showSuccess){
+                new Thread(GameModel::playerRoundEnd).start();
+            }
         }
     }
 

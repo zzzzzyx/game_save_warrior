@@ -39,9 +39,12 @@ public class M_RandomAOE extends NonTargetSkill{
             monster.current_blood -= damage_cause;
             damage_list.put(monster,damage_cause);
         }
-        GameModel.getInstance().invokeObserver();
+        GameModel.getInstance().invokeSkillUseObserver(true);
         for(Monster monster : selectedMonsterList){
-            HurtShower.showMonsterHurt(monster,damage_list.get(monster));
+            var showSuccess = HurtShower.showMonsterHurt(monster,damage_list.get(monster));
+            if(!showSuccess){
+                new Thread(GameModel::playerRoundEnd).start();
+            }
         }
     }
 

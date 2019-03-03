@@ -6,9 +6,10 @@ import skill.*;
 import java.util.List;
 
 public class Warrior extends Player {
+    public static final String INTRINSIC_DESCRIPTION = "每个自己的回合结束后有50%几率使自身下个技能伤害翻倍";
     private double damage_next = 1;
     public Warrior(){
-        super("战士",10000,1000, 600,100,300,1,1000);
+        super("战士");
     }
 
     @Override

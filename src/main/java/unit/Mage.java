@@ -5,6 +5,7 @@ import skill.*;
 import java.util.List;
 
 public class Mage extends Player {
+    public static final String INTRINSIC_DESCRIPTION = "每个自己的回合结束后有50%几率使自身回复20%血量";
     @Override
     public List<AbstractSkill> getSkills() {
         if(this.skills == null){
@@ -14,6 +15,6 @@ public class Mage extends Player {
     }
 
     public Mage() {
-        super("术士", 10000,1000, 600,100,300,1,1000);
+        super("法师");
     }
 }

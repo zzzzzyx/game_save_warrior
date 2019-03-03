@@ -4,10 +4,7 @@ import gameboard.GameModel;
 import gui.HurtShower;
 import unit.Monster;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
 
 public class M_WholeAOE extends NonTargetSkill{
     double[] damage_coefficient ={0,0.9,1.1,1.3};
@@ -17,6 +14,7 @@ public class M_WholeAOE extends NonTargetSkill{
         GameModel gameModel = GameModel.getInstance();
         var monstersOnBoard = gameModel.getMonsters();
         var player = gameModel.getPlayer();
+        player.minusCurrentBlood((int)(player.current_blood*sacrifice_coefficient[level]));
 
         var damage_list = new HashMap<Monster,Integer>();
         for(Monster monster : monstersOnBoard){
@@ -26,11 +24,13 @@ public class M_WholeAOE extends NonTargetSkill{
             monster.current_blood -= damage_cause;
             damage_list.put(monster,damage_cause);
         }
-        GameModel.getInstance().invokeObserver();
+        GameModel.getInstance().invokeSkillUseObserver(true);
         for(Monster monster : monstersOnBoard){
-            HurtShower.showMonsterHurt(monster,damage_list.get(monster));
+            var showSuccess = HurtShower.showMonsterHurt(monster,damage_list.get(monster));
+            if(!showSuccess){
+                new Thread(GameModel::playerRoundEnd).start();
+            }
         }
-        player.minusCurrentBlood((int)(player.current_blood*sacrifice_coefficient[level]));
     }
 
     @Override

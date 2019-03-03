@@ -19,6 +19,8 @@ public class W_Hold extends NonTargetSkill{
         GameModel gm = GameModel.getInstance();
         Warrior warrior = (Warrior)gm.getPlayer();
         warrior.hold(recover_coefficient[level],damage_next[level]);
+        gm.invokeSkillUseObserver(true);
+        new Thread(GameModel::playerRoundEnd).start();
     }
 
     @Override
