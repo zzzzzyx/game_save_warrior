@@ -29,7 +29,7 @@ public abstract class Weapon extends Buyable implements Cloneable{
     }
 
     @Override
-    public void buy_sub(Player player) {
+    protected void buy_sub(Player player) {
         player.weapon = this.clone();
     }
 

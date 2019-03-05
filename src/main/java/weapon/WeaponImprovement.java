@@ -18,7 +18,7 @@ public class WeaponImprovement extends Buyable {
     }
 
     @Override
-    public void buy_sub(Player player) {
+    protected void buy_sub(Player player) {
         improve(player.weapon);
     }
 }

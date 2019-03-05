@@ -22,7 +22,7 @@ public abstract class Buyable {
         gm.reloadData();
     }
 
-    public abstract void buy_sub(Player player);
+    protected abstract void buy_sub(Player player);
 
     public boolean canBuy() {
         int player_money = GameModel.getInstance().getPlayer().money;
