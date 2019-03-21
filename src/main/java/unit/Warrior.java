@@ -3,6 +3,7 @@ package unit;
 import gameboard.GlobalLogger;
 import skill.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Warrior extends Player {
@@ -15,7 +16,10 @@ public class Warrior extends Player {
     @Override
     public List<AbstractSkill> getSkills() {
         if(this.skills == null){
-            this.skills = List.of(new W_NormalAttack(), new W_Collision(), new W_Hold());
+            this.skills = new ArrayList<>();
+            this.skills.add(new W_NormalAttack());
+            this.skills.add(new W_Collision());
+            this.skills.add(new W_Hold());
         }
         return this.skills;
     }

@@ -16,10 +16,10 @@ public class W_Collision extends TargetedSkill{
     double[] extra_target_num = {0,2,2,3};
     @Override
     public void trigger(Monster m) {
-        var gm = GameModel.getInstance();
-        var player = (Warrior)gm.getPlayer();
+        GameModel gm = GameModel.getInstance();
+        Warrior player = (Warrior)gm.getPlayer();
 
-        var monstersOnBoard = gm.getMonsters();
+        List<Monster> monstersOnBoard = gm.getMonsters();
         List<Monster> selectedMonsterList;
         if(monstersOnBoard.size() <= extra_target_num[level]+1){
             selectedMonsterList = monstersOnBoard;
@@ -33,7 +33,7 @@ public class W_Collision extends TargetedSkill{
                 }
             }
         }
-        var damage_list = new HashMap<Monster,Integer>();
+        HashMap<Monster,Integer> damage_list = new HashMap<>();
         for(Monster monster : selectedMonsterList){
             int damage_cause = player.getActualDamageCauseToMonster(monster);
             damage_cause *= damage_coefficient[level];
@@ -44,7 +44,7 @@ public class W_Collision extends TargetedSkill{
         player.resetDamageNext();
         gm.invokeSkillUseObserver(true);
         for(Monster monster : selectedMonsterList){
-            var showSuccess = HurtShower.showMonsterHurt(monster,damage_list.get(monster));
+            boolean showSuccess = HurtShower.showMonsterHurt(monster,damage_list.get(monster));
             if(!showSuccess){
                 new Thread(GameModel::playerRoundEnd).start();
             }

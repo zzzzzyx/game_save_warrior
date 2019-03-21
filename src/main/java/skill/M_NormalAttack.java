@@ -3,6 +3,7 @@ package skill;
 import gameboard.GameModel;
 import gui.HurtShower;
 import unit.Monster;
+import unit.Player;
 
 import java.util.Random;
 
@@ -11,8 +12,8 @@ public class M_NormalAttack extends TargetedSkill{
     double[] damage_coefficient ={2,3,5};
     @Override
     public void trigger(Monster m) {
-        var gm = GameModel.getInstance();
-        var player = gm.getPlayer();
+        GameModel gm = GameModel.getInstance();
+        Player player = gm.getPlayer();
         int damage_cause = player.getActualDamageCauseToMonster(m);
         double efficient = damage_coefficient[level];
         if(random.nextBoolean()){
@@ -23,7 +24,7 @@ public class M_NormalAttack extends TargetedSkill{
         m.current_blood -= damage_cause;
         gm.invokeSkillUseObserver(true);
         gm.reloadData();
-        var showSuccess = HurtShower.showMonsterHurt(m,damage_cause);
+        boolean showSuccess = HurtShower.showMonsterHurt(m,damage_cause);
         if(!showSuccess){
             new Thread(GameModel::playerRoundEnd).start();
         }

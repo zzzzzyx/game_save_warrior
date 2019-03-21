@@ -56,7 +56,7 @@ public class BattlePanel extends JPanel implements SkillUseObserver {
             HashMap<Monster,JLabel> hurtLabelMap = new HashMap<>();
 
             for(Monster monster : monsters) {
-                var monsterButton = generateMonsterButton(monster);
+                JButton monsterButton = generateMonsterButton(monster);
 
                 JLabel l = new JLabel("",JLabel.CENTER);
                 l.setVisible(false);

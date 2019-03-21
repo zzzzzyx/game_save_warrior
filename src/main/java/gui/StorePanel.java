@@ -6,6 +6,7 @@ import observation.ReloadDataObserver;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class StorePanel extends JPanel implements ReloadDataObserver {
 
@@ -24,7 +25,7 @@ public class StorePanel extends JPanel implements ReloadDataObserver {
         this.repaint();
 
         Store store = Store.getInstance();
-        var products = store.getProducts();
+        List<Buyable> products = store.getProducts();
         for(Buyable product : products){
             JButton productButton = new JButton(product.productName);
             productButton.setPreferredSize(new Dimension(SQUARE_WIDTH, SQUARE_HEIGHT));

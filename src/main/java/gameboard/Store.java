@@ -13,7 +13,10 @@ public class Store {
 
     private Store(){
         products = new ArrayList<>();
-        products.addAll(List.of(new W_Shield(),new W_Sword(),new W_Balance()));
+
+        products.add(new W_Shield());
+        products.add(new W_Sword());
+        products.add(new W_Balance());
         products.add(new WeaponImprovement());
         GameModel gm = GameModel.getInstance();
         for(AbstractSkill skill : gm.getSkills()){

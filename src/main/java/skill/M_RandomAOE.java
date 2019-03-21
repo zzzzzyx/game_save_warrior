@@ -3,6 +3,7 @@ package skill;
 import gameboard.GameModel;
 import gui.HurtShower;
 import unit.Monster;
+import unit.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,8 +17,8 @@ public class M_RandomAOE extends NonTargetSkill{
     @Override
     public void trigger() {
         GameModel gameModel = GameModel.getInstance();
-        var monstersOnBoard = gameModel.getMonsters();
-        var player = gameModel.getPlayer();
+        List<Monster> monstersOnBoard = gameModel.getMonsters();
+        Player player = gameModel.getPlayer();
 
         List<Monster> selectedMonsterList;
         if(monstersOnBoard.size() <= target_num[level]){
@@ -31,7 +32,7 @@ public class M_RandomAOE extends NonTargetSkill{
                 }
             }
         }
-        var damage_list = new HashMap<Monster,Integer>();
+        HashMap<Monster,Integer> damage_list = new HashMap<>();
         for(Monster monster : selectedMonsterList){
             int damage_cause = player.getActualDamageCauseToMonster(monster);
             damage_cause *= 1.2*damage_coefficient[level];
@@ -41,7 +42,7 @@ public class M_RandomAOE extends NonTargetSkill{
         }
         GameModel.getInstance().invokeSkillUseObserver(true);
         for(Monster monster : selectedMonsterList){
-            var showSuccess = HurtShower.showMonsterHurt(monster,damage_list.get(monster));
+            boolean showSuccess = HurtShower.showMonsterHurt(monster,damage_list.get(monster));
             if(!showSuccess){
                 new Thread(GameModel::playerRoundEnd).start();
             }

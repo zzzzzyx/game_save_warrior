@@ -2,6 +2,7 @@ package unit;
 
 import skill.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Mage extends Player {
@@ -9,7 +10,10 @@ public class Mage extends Player {
     @Override
     public List<AbstractSkill> getSkills() {
         if(this.skills == null){
-            this.skills = List.of(new M_NormalAttack(), new M_RandomAOE(), new M_WholeAOE());
+            this.skills = new ArrayList<>();
+            this.skills.add(new M_NormalAttack());
+            this.skills.add(new M_RandomAOE());
+            this.skills.add(new M_WholeAOE());
         }
         return this.skills;
     }

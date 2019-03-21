@@ -3,6 +3,7 @@ package skill;
 import gameboard.GameModel;
 import gui.HurtShower;
 import unit.Monster;
+import unit.Player;
 import unit.Warrior;
 
 public class W_NormalAttack extends TargetedSkill{
@@ -10,8 +11,8 @@ public class W_NormalAttack extends TargetedSkill{
     double[] recover_coefficient = {0,0.05,0.08,0.1};
     @Override
     public void trigger(Monster m) {
-        var gm = GameModel.getInstance();
-        var player = (Warrior)gm.getPlayer();
+        GameModel gm = GameModel.getInstance();
+        Warrior player = (Warrior)gm.getPlayer();
         int damage_cause = player.getActualDamageCauseToMonster(m);
         damage_cause *= 2*damage_coefficient[level];
         damage_cause = damage_cause>0?damage_cause:0;
@@ -20,7 +21,7 @@ public class W_NormalAttack extends TargetedSkill{
         player.resetDamageNext();
         gm.invokeSkillUseObserver(true);
         gm.reloadData();
-        var showSuccess = HurtShower.showMonsterHurt(m,damage_cause);
+        boolean showSuccess = HurtShower.showMonsterHurt(m,damage_cause);
         if(!showSuccess){
             new Thread(GameModel::playerRoundEnd).start();
         }
